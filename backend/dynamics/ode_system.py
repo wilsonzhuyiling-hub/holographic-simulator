@@ -48,10 +48,18 @@ C_SPHERE: float = C1 * math.sqrt(4 * _PI) / _E
 
 OMEGA_M0_BRIDGE: float = 0.3
 """
-Matter fraction today.  Observational background input used as a unit-conversion
-bridge, not as a fitted parameter.  Labelled explicitly per project constitution.
-Sourced from Planck 2018 TT,TE,EE+lowE+lensing (Ω_m ≈ 0.315); rounded to 0.3
-for the standard background comparison.
+Matter fraction today — standard background comparison value.
+Observational bridge input, not a fit knob.  Rounded to 0.3 per P2 convention
+for direct comparison with published framework predictions (Table 2 of P2).
+See OMEGA_M0_PLANCK for the Planck 2018 precision value.
+"""
+
+OMEGA_M0_PLANCK: float = 0.315
+"""
+Matter fraction today — Planck 2018 precision value.
+Planck 2018 TT,TE,EE+lowE+lensing best fit: Ω_m = 0.315 ± 0.007.
+Use for Stage 2 sensitivity analysis; E(z) shifts by ~0.9–2.2% vs OMEGA_M0_BRIDGE
+over the DESI redshift range.
 """
 
 

@@ -46,7 +46,15 @@ H0_PLANCK: float = 67.36
 """Hubble constant today [km/s/Mpc] — Planck 2018 TT,TE,EE+lowE+lensing."""
 
 R_D_PLANCK: float = 147.09
-"""Sound horizon at baryon drag epoch [Mpc] — Planck 2018."""
+"""Sound horizon at baryon drag epoch [Mpc] — Planck 2018 TT,TE,EE+lowE+lensing."""
+
+R_D_DESI: float = 147.05
+"""
+Sound horizon at baryon drag epoch [Mpc] — DESI DR2 fiducial value (arXiv:2503.14738).
+Use this when computing BAO ratios for direct DESI DR2 comparison.
+P2 Sec. 9 explicitly uses this value: c/(H₀ r_d) = 30.27 with r_d = 147.05 Mpc.
+Difference from R_D_PLANCK: 0.04 Mpc (0.027%).
+"""
 
 DH0: float = C_KMS / H0_PLANCK
 """Hubble distance D_H0 = c/H₀ ≈ 4451 Mpc."""
