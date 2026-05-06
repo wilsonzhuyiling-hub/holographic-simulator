@@ -31,6 +31,7 @@ from dataclasses import dataclass, field
 import numpy as np
 from scipy.interpolate import CubicSpline
 
+from dynamics.ode_system import OMEGA_M1
 from dynamics.solver import SolverResult
 
 

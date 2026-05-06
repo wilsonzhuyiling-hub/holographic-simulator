@@ -39,6 +39,21 @@ C1: float = _PI**2 / (16 * _E**2)
 OMEGA_LAMBDA_FP: float = _PI**3 / (6 * _E**2)
 """Dark-energy fixed-point fraction Ω_Λ0 = π³/(6e²)  [P2 Eq. 9]"""
 
+OMEGA_M1: float = 1.0 - OMEGA_LAMBDA_FP
+"""
+Matter fraction at the C₁ fixed point: Ω_m1 = 1 − π³/(6e²) ≈ 0.3006.
+
+Tier 1 geometric constant.  Derived from flat-universe closure at τ = 1:
+    Ω_m1 + Ω_Λ0 = 1   →   Ω_m1 = 1 − Ω_Λ0
+
+Guarantees E(z=0) = 1 exactly.  This is the correct default matter input
+for the ODE system; it replaces the earlier OMEGA_M0_BRIDGE = 0.3 round
+value, which caused a 0.063% Friedmann closure error.
+
+The name carries the subscript '1' because it is the matter complement of
+C₁, analogous to Ω_Λ0 = π³/(6e²) being the dark-energy reading at C₁.
+"""
+
 C_SPHERE: float = C1 * math.sqrt(4 * _PI) / _E
 """First spherical release threshold C_sphere = C₁·f_sph  [P2 Eq. 16]"""
 
@@ -48,18 +63,18 @@ C_SPHERE: float = C1 * math.sqrt(4 * _PI) / _E
 
 OMEGA_M0_BRIDGE: float = 0.3
 """
-Matter fraction today — standard background comparison value.
-Observational bridge input, not a fit knob.  Rounded to 0.3 per P2 convention
-for direct comparison with published framework predictions (Table 2 of P2).
-See OMEGA_M0_PLANCK for the Planck 2018 precision value.
+Deprecated — use OMEGA_M1 instead.
+Legacy round value used in early drafts of P2 (when the fixed point was
+labelled C₀ rather than C₁).  Retained for reference only; causes a 0.063%
+Friedmann closure error.  Not used as a default anywhere in the codebase.
 """
 
 OMEGA_M0_PLANCK: float = 0.315
 """
-Matter fraction today — Planck 2018 precision value.
-Planck 2018 TT,TE,EE+lowE+lensing best fit: Ω_m = 0.315 ± 0.007.
-Use for Stage 2 sensitivity analysis; E(z) shifts by ~0.9–2.2% vs OMEGA_M0_BRIDGE
-over the DESI redshift range.
+Planck 2018 observed total matter fraction (Tier 3 reference).
+Planck 2018 TT,TE,EE+lowE+lensing: Ω_m = 0.315 ± 0.007.
+The framework's geometric prediction OMEGA_M1 ≈ 0.3006 differs from this
+by ~0.5%, providing a falsifiable comparison.
 """
 
 
@@ -81,7 +96,7 @@ class ODEState(NamedTuple):
 # ODE right-hand side
 # ---------------------------------------------------------------------------
 
-def dtau_dz(z: float, tau: float, omega_m0: float = OMEGA_M0_BRIDGE) -> float:
+def dtau_dz(z: float, tau: float, omega_m0: float = OMEGA_M1) -> float:
     """
     dτ/dz = -(1 - ε(z)) / (1 + z)    [P2 Eq. 10]
 
@@ -141,7 +156,7 @@ def C_ratio(tau: float) -> float:
     return math.exp(-2.0 * (tau - 1.0))
 
 
-def build_state(z: float, tau: float, omega_m0: float = OMEGA_M0_BRIDGE) -> ODEState:
+def build_state(z: float, tau: float, omega_m0: float = OMEGA_M1) -> ODEState:
     """Compute the full diagnostic state at a given (z, τ) point."""
     omega_lam = _omega_lambda(tau)
     om = _omega_m(z, omega_lam, omega_m0)

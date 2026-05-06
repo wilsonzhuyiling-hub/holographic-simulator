@@ -85,14 +85,15 @@ The framework is zero-free-parameter, but requires cosmological inputs of three 
 
 | Constant | Value | Source |
 |---|---|---|
-| C₁ = π²/(16e²) | ≈ 0.04185 | de Sitter fixed-point coefficient (P1) |
-| Ω_Λ0 = π³/(6e²) | ≈ 0.6188 | Dark-energy fixed-point fraction (P2 Eq. 9) |
+| C₁ = π²/(16e²) | ≈ 0.08348 | de Sitter fixed-point coefficient (P1) |
+| Ω_Λ0 = π³/(6e²) | ≈ 0.69937 | Dark-energy fixed-point fraction (P2 Eq. 9) |
+| Ω_m1 = 1 − π³/(6e²) | ≈ 0.30063 | Matter fraction at C₁ fixed point: flat-universe complement of Ω_Λ0. Guarantees E(z=0) = 1 exactly. See note below. |
 
-**Tier 2 — Validation bridge inputs** (observational anchors for unit conversion; not fit knobs)
+**Tier 2 — Validation bridge inputs** (observational reference values; not fit knobs)
 
 | Constant | Value | Source |
 |---|---|---|
-| Ω_m0 | 0.3 | Matter fraction today — Planck 2018, rounded for standard background comparison |
+| Ω_m (Planck) | 0.315 ± 0.007 | Planck 2018 TT,TE,EE+lowE+lensing — compared against Ω_m1 as a falsifiability check |
 
 **Tier 3 — Foundational model data** (Planck 2018 measurements used to convert dimensionless framework predictions into physically observable quantities; values are fixed from Planck and are not adjusted to improve framework fit)
 
@@ -101,9 +102,11 @@ The framework is zero-free-parameter, but requires cosmological inputs of three 
 | H₀ | 67.36 km/s/Mpc | Planck 2018 TT,TE,EE+lowE+lensing | Converting E(z) to physical H(z); computing comoving distances |
 | r_d | 147.09 Mpc | Planck 2018 (baryon drag epoch) | BAO ratio observables D_M/r_d, D_H/r_d (Stage 2) |
 
-The strict separation between tiers is deliberate: only Tier 1 constants are framework predictions. Tier 2 and Tier 3 values are input from independent cosmological observations and serve as a fixed background, not as degrees of freedom.
+The strict separation between tiers is deliberate: only Tier 1 constants are framework predictions. Tier 2 and Tier 3 values come from independent observations and serve as fixed reference points, not degrees of freedom.
 
-> **Note:** Tier 3 values establish the observational reference frame only. They do not enter the ODE system and have no effect on the model's intrinsic curve output — τ(z), E(z), Ω_m(z), Ω_Λ(z), and C/C₁ are fully determined by Tier 1 and Tier 2 alone. Tier 3 is required solely to convert those dimensionless curves into the physical distance units (Mpc, km/s/Mpc) that observational catalogues report.
+> **Note on Ω_m1:** Early drafts of P2 labelled the de Sitter fixed point as C₀ instead of C₁, which caused Ω_m1 to be misidentified as an observational bridge input (rounded to 0.3). The correct value is the geometric complement of Ω_Λ0 at the flat-universe fixed point: Ω_m1 = 1 − π³/(6e²) ≈ 0.30063. This is a Tier 1 prediction. The framework's Ω_m1 ≈ 0.30063 is close to but distinct from the Planck-observed Ω_m = 0.315 ± 0.007 — the ~5% gap is a falsifiable prediction.
+
+> **Note on Tier 3:** H₀ and r_d do not enter the ODE system and have no effect on the intrinsic model curves — τ(z), E(z), Ω_m(z), Ω_Λ(z), and C/C₁ are fully determined by Tier 1 alone. Tier 3 is required solely to convert dimensionless curves into physical distance units (Mpc, km/s/Mpc) for observational comparison.
 
 ---
 
