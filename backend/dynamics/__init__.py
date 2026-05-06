@@ -1,4 +1,4 @@
-"""Dynamics engine — Stage 1.
+"""Dynamics engine — Stage 1/2.
 
 ODE-based integration of the matter-deformed framework equations.
 Implements P2 Sec. 3 self-consistent system:
@@ -12,12 +12,21 @@ with boundary condition τ(z=0) = 1 and Ω_m0 = 0.3 (validation bridge input).
 
 Public API
 ----------
-    solve_history()   → SolverResult   (continuous interpolants)
-    detect_all()      → CriticalPoints (τ_min, C_peak, overflow windows)
+    solve_history()        → SolverResult      (continuous interpolants)
+    detect_all()           → CriticalPoints    (τ_min, C_peak, overflow windows)
+    compute_observables()  → ObservablesResult (BAO distances, ratio observables)
 """
 
 from dynamics.solver import solve_history, SolverResult
 from dynamics.critical_points import detect_all, CriticalPoints, TauMinimum, OverflowWindow
+from dynamics.observables import (
+    compute_observables,
+    ObservablesResult,
+    DH0,
+    H0_PLANCK,
+    R_D_PLANCK,
+    C_KMS,
+)
 from dynamics.ode_system import (
     C1,
     C_SPHERE,
@@ -36,6 +45,12 @@ __all__ = [
     "CriticalPoints",
     "TauMinimum",
     "OverflowWindow",
+    "compute_observables",
+    "ObservablesResult",
+    "DH0",
+    "H0_PLANCK",
+    "R_D_PLANCK",
+    "C_KMS",
     "C1",
     "C_SPHERE",
     "OMEGA_LAMBDA_FP",
