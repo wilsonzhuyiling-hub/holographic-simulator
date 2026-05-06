@@ -89,11 +89,11 @@ The framework is zero-free-parameter, but requires cosmological inputs of three 
 | Ω_Λ0 = π³/(6e²) | ≈ 0.69937 | Dark-energy fixed-point fraction (P2 Eq. 9) |
 | Ω_m1 = 1 − π³/(6e²) | ≈ 0.30063 | Matter fraction at C₁ fixed point: flat-universe complement of Ω_Λ0. Guarantees E(z=0) = 1 exactly. See note below. |
 
-**Tier 2 — Observational reference at C_now** (the actual present-day universe, distinct from C₁)
+**Tier 2 — Observational values at C_now** (τ_now ≈ 0.96, the actual present-day universe)
 
 | Constant | Value | Source |
 |---|---|---|
-| Ω_m(C_now) | 0.315 ± 0.007 | Planck 2018 TT,TE,EE+lowE+lensing. This is the matter fraction at the observed present, not at the geometric fixed point C₁. The ~5% gap vs Ω_m1 ≈ 0.30063 reflects the offset between C₁ and C_now — a falsifiable framework prediction. |
+| Ω_m(C_now) | 0.315 ± 0.007 | Planck 2018 TT,TE,EE+lowE+lensing, measured at C_now (τ_now ≈ 0.96). |
 
 **Tier 3 — Foundational model data** (Planck 2018 measurements used to convert dimensionless framework predictions into physically observable quantities; values are fixed from Planck and are not adjusted to improve framework fit)
 
@@ -104,7 +104,7 @@ The framework is zero-free-parameter, but requires cosmological inputs of three 
 
 The strict separation between tiers is deliberate: only Tier 1 constants are framework predictions. Tier 2 and Tier 3 values come from independent observations and serve as fixed reference points, not degrees of freedom.
 
-> **Note on Ω_m1:** Early drafts of P2 labelled the de Sitter fixed point as C₀ instead of C₁, which caused Ω_m1 to be misidentified as an observational bridge input (rounded to 0.3). The correct value is the geometric complement of Ω_Λ0 at the flat-universe fixed point: Ω_m1 = 1 − π³/(6e²) ≈ 0.30063. This is a Tier 1 prediction. The framework's Ω_m1 ≈ 0.30063 is close to but distinct from the Planck-observed Ω_m = 0.315 ± 0.007 — the ~5% gap is a falsifiable prediction.
+> **Note on C₁ vs C_now:** The de Sitter fixed point C₁ (τ = 1) is a theoretical asymptote — the real universe approaches it but never reaches it. Today the universe sits at C_now (τ_now ≈ 0.96, i.e. τ_now = H₀ t₀ ≈ 0.95–0.96 for t₀ ≈ 13.8 Gyr). Ω_m1 = 1 − π³/(6e²) is the matter fraction at C₁ (Tier 1, used as the ODE anchor). Ω_m(C_now) = 0.315 is the matter fraction at the actual present (Tier 2, Planck observed). These are two different cosmological points on the same trajectory — not a prediction versus observation discrepancy. Early drafts of P2 misidentified C₁ as C₀, which caused Ω_m1 to be rounded to 0.3 as if it were an observational input.
 
 > **Note on Tier 3:** H₀ and r_d do not enter the ODE system and have no effect on the intrinsic model curves — τ(z), E(z), Ω_m(z), Ω_Λ(z), and C/C₁ are fully determined by Tier 1 alone. Tier 3 is required solely to convert dimensionless curves into physical distance units (Mpc, km/s/Mpc) for observational comparison.
 

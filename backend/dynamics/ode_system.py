@@ -41,17 +41,18 @@ OMEGA_LAMBDA_FP: float = _PI**3 / (6 * _E**2)
 
 OMEGA_M1: float = 1.0 - OMEGA_LAMBDA_FP
 """
-Matter fraction at the C₁ fixed point: Ω_m1 = 1 − π³/(6e²) ≈ 0.3006.
+Matter fraction at the C₁ de Sitter fixed point: Ω_m1 = 1 − π³/(6e²) ≈ 0.30063.
 
-Tier 1 geometric constant.  Derived from flat-universe closure at τ = 1:
+Tier 1 geometric constant.  Derived from flat-universe Friedmann closure at τ = 1:
     Ω_m1 + Ω_Λ0 = 1   →   Ω_m1 = 1 − Ω_Λ0
 
-Guarantees E(z=0) = 1 exactly.  This is the correct default matter input
-for the ODE system; it replaces the earlier OMEGA_M0_BRIDGE = 0.3 round
-value, which caused a 0.063% Friedmann closure error.
+The de Sitter fixed point C₁ (τ = 1) is a theoretical asymptote — the real
+universe approaches it but never reaches it.  Today the universe sits at
+τ_now ≈ 0.96 (C_now), not at τ = 1 (C₁).  Ω_m1 is therefore the matter
+fraction at the ODE anchor point, not at the physical present.
 
-The name carries the subscript '1' because it is the matter complement of
-C₁, analogous to Ω_Λ0 = π³/(6e²) being the dark-energy reading at C₁.
+Used as the default Ω_m0 input for the ODE system because it guarantees
+E(z=0) = 1 exactly, giving a self-consistent boundary condition.
 """
 
 C_SPHERE: float = C1 * math.sqrt(4 * _PI) / _E
@@ -71,16 +72,20 @@ Friedmann closure error.  Not used as a default anywhere in the codebase.
 
 OMEGA_M_NOW_PLANCK: float = 0.315
 """
-Planck 2018 observed matter fraction at the actual present (C_now).
+Planck 2018 observed matter fraction at C_now (τ_now ≈ 0.96).
 
-This is NOT the matter fraction at C₁.  The framework distinguishes two points:
-    C₁   — the de Sitter fixed point (τ=1), where OMEGA_M1 = 1 − π³/(6e²) ≈ 0.3006
-    C_now — the actual present-day universe, which is near C₁ but not identical to it
+The real universe today is at τ_now ≈ 0.96, not at the de Sitter fixed point
+τ = 1 (C₁).  All Planck observational quantities — Ω_m, Ω_Λ, H₀ — are
+measured at C_now, not at C₁.
 
-Planck 2018 TT,TE,EE+lowE+lensing measures Ω_m(C_now) = 0.315 ± 0.007.
-The ~5% gap between OMEGA_M1 and OMEGA_M_NOW_PLANCK reflects the offset
-between the geometric fixed point and the observed present state — a
-falsifiable prediction of the framework.
+    C₁   : τ = 1  (theoretical anchor, never physically reached)
+    C_now: τ ≈ 0.96  (actual present; τ_now = H₀ t₀ ≈ 0.95–0.96 for t₀ ≈ 13.8 Gyr)
+
+Planck 2018 TT,TE,EE+lowE+lensing: Ω_m(C_now) = 0.315 ± 0.007.
+
+The difference between OMEGA_M1 (at C₁) and OMEGA_M_NOW_PLANCK (at C_now) is
+not a prediction gap — it is the natural consequence of two distinct points on
+the cosmological trajectory.
 """
 
 # Legacy alias — do not use in new code
