@@ -103,6 +103,8 @@ The framework is zero-free-parameter, but requires cosmological inputs of three 
 
 The strict separation between tiers is deliberate: only Tier 1 constants are framework predictions. Tier 2 and Tier 3 values are input from independent cosmological observations and serve as a fixed background, not as degrees of freedom.
 
+> **Note:** Tier 3 values establish the observational reference frame only. They do not enter the ODE system and have no effect on the model's intrinsic curve output — τ(z), E(z), Ω_m(z), Ω_Λ(z), and C/C₁ are fully determined by Tier 1 and Tier 2 alone. Tier 3 is required solely to convert those dimensionless curves into the physical distance units (Mpc, km/s/Mpc) that observational catalogues report.
+
 ---
 
 ## Quick start (developers)
