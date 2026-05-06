@@ -89,11 +89,11 @@ The framework is zero-free-parameter, but requires cosmological inputs of three 
 | Ω_Λ0 = π³/(6e²) | ≈ 0.69937 | Dark-energy fixed-point fraction (P2 Eq. 9) |
 | Ω_m1 = 1 − π³/(6e²) | ≈ 0.30063 | Matter fraction at C₁ fixed point: flat-universe complement of Ω_Λ0. Guarantees E(z=0) = 1 exactly. See note below. |
 
-**Tier 2 — Validation bridge inputs** (observational reference values; not fit knobs)
+**Tier 2 — Observational reference at C_now** (the actual present-day universe, distinct from C₁)
 
 | Constant | Value | Source |
 |---|---|---|
-| Ω_m (Planck) | 0.315 ± 0.007 | Planck 2018 TT,TE,EE+lowE+lensing — compared against Ω_m1 as a falsifiability check |
+| Ω_m(C_now) | 0.315 ± 0.007 | Planck 2018 TT,TE,EE+lowE+lensing. This is the matter fraction at the observed present, not at the geometric fixed point C₁. The ~5% gap vs Ω_m1 ≈ 0.30063 reflects the offset between C₁ and C_now — a falsifiable framework prediction. |
 
 **Tier 3 — Foundational model data** (Planck 2018 measurements used to convert dimensionless framework predictions into physically observable quantities; values are fixed from Planck and are not adjusted to improve framework fit)
 

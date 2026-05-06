@@ -69,13 +69,22 @@ labelled C₀ rather than C₁).  Retained for reference only; causes a 0.063%
 Friedmann closure error.  Not used as a default anywhere in the codebase.
 """
 
-OMEGA_M0_PLANCK: float = 0.315
+OMEGA_M_NOW_PLANCK: float = 0.315
 """
-Planck 2018 observed total matter fraction (Tier 3 reference).
-Planck 2018 TT,TE,EE+lowE+lensing: Ω_m = 0.315 ± 0.007.
-The framework's geometric prediction OMEGA_M1 ≈ 0.3006 differs from this
-by ~0.5%, providing a falsifiable comparison.
+Planck 2018 observed matter fraction at the actual present (C_now).
+
+This is NOT the matter fraction at C₁.  The framework distinguishes two points:
+    C₁   — the de Sitter fixed point (τ=1), where OMEGA_M1 = 1 − π³/(6e²) ≈ 0.3006
+    C_now — the actual present-day universe, which is near C₁ but not identical to it
+
+Planck 2018 TT,TE,EE+lowE+lensing measures Ω_m(C_now) = 0.315 ± 0.007.
+The ~5% gap between OMEGA_M1 and OMEGA_M_NOW_PLANCK reflects the offset
+between the geometric fixed point and the observed present state — a
+falsifiable prediction of the framework.
 """
+
+# Legacy alias — do not use in new code
+OMEGA_M0_PLANCK: float = OMEGA_M_NOW_PLANCK
 
 
 # ---------------------------------------------------------------------------
