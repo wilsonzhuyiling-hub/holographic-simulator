@@ -1,6 +1,6 @@
 # Holographic Simulator
 
-> ⚠️ **Status: Alpha (work in progress)** — Stage 0 scaffolding only. The dynamics engine and statistics layer are under active development. Public for transparency; not yet ready for use.
+> ⚠️ **Status: Alpha (work in progress)** — Stage 0 scaffolding is complete. The dynamics engine is under active development on the Stage 1 branch, and the statistics/API/frontend layers are not yet ready for use.
 
 Open-source simulator for the **Holographic Geometric Framework**, a zero-free-parameter theoretical framework for cosmological observables. The simulator solves the framework's self-consistent ODE system and compares its predictions to public observational data (DESI, Planck) using continuous-domain statistical methods that avoid the binning, diagonal-covariance, and free-parameter limitations of standard ΛCDM analyses.
 
@@ -54,8 +54,8 @@ See [`docs/architecture.md`](docs/architecture.md) for module-level detail.
 
 | Stage | Status | Deliverable |
 |---|---|---|
-| 0 — Scaffolding | ✅ in progress | Repo structure, CI, docs skeleton |
-| 1 — Dynamics engine | 🔲 planned | RK45 ODE solver, automatic critical-point detection (recovers τ_min ≈ 0.808, C_peak/C₁ ≈ 1.467) |
+| 0 — Scaffolding | ✅ complete | Repo structure, CI, docs skeleton, editable backend install |
+| 1 — Dynamics engine | 🟡 in progress | RK45 ODE solver, automatic critical-point detection (recovers τ_min ≈ 0.808, C_peak/C₁ ≈ 1.467) |
 | 2 — Statistics layer | 🔲 planned | DESI DR2 loader, full-covariance χ², GP reconstruction, Bayes factor |
 | 3 — API service | 🔲 planned | FastAPI endpoints, Pydantic schemas, OpenAPI docs |
 | 4 — Frontend prototype | 🔲 planned | Dual-curve view, residual panel, paper provenance popover |
@@ -79,7 +79,7 @@ Code-to-paper provenance is tracked in [`docs/physics_to_code_map.md`](docs/phys
 
 ## Quick start (developers)
 
-> Stage 0 only — the API and frontend do not exist yet. Right now you can run the legacy event/constant generator from the previous prototype:
+> The API and frontend do not exist yet. Stage 0 setup is complete; the legacy event/constant generator remains available:
 
 ```bash
 cd backend
@@ -88,7 +88,13 @@ python core/universe_simulator.py
 
 This produces `outputs/*.csv` and `outputs/*.json` containing derived constants, particle events, force validations, and the dark-matter relaxation table.
 
-Full developer setup (including the dynamics engine) will be documented once Stage 1 lands.
+Developer setup:
+
+```bash
+cd backend
+pip install -e ".[dev]"
+pytest
+```
 
 ---
 
