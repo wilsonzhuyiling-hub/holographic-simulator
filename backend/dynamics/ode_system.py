@@ -39,6 +39,22 @@ C1: float = _PI**2 / (16 * _E**2)
 OMEGA_LAMBDA_FP: float = _PI**3 / (6 * _E**2)
 """Dark-energy fixed-point fraction Ω_Λ0 = π³/(6e²)  [P2 Eq. 9]"""
 
+OMEGA_M1: float = 1.0 - OMEGA_LAMBDA_FP
+"""
+Matter fraction at the C₁ de Sitter fixed point: Ω_m1 = 1 − π³/(6e²) ≈ 0.30063.
+
+Tier 1 geometric constant.  Derived from flat-universe Friedmann closure at τ = 1:
+    Ω_m1 + Ω_Λ0 = 1   →   Ω_m1 = 1 − Ω_Λ0
+
+The de Sitter fixed point C₁ (τ = 1) is a theoretical asymptote — the real
+universe approaches it but never reaches it.  Today the universe sits at
+τ_now ≈ 0.96 (C_now), not at τ = 1 (C₁).  Ω_m1 is therefore the matter
+fraction at the ODE anchor point, not at the physical present.
+
+Used as the default Ω_m0 input for the ODE system because it guarantees
+E(z=0) = 1 exactly, giving a self-consistent boundary condition.
+"""
+
 C_SPHERE: float = C1 * math.sqrt(4 * _PI) / _E
 """First spherical release threshold C_sphere = C₁·f_sph  [P2 Eq. 16]"""
 
@@ -48,11 +64,32 @@ C_SPHERE: float = C1 * math.sqrt(4 * _PI) / _E
 
 OMEGA_M0_BRIDGE: float = 0.3
 """
-Matter fraction today.  Observational background input used as a unit-conversion
-bridge, not as a fitted parameter.  Labelled explicitly per project constitution.
-Sourced from Planck 2018 TT,TE,EE+lowE+lensing (Ω_m ≈ 0.315); rounded to 0.3
-for the standard background comparison.
+Deprecated — use OMEGA_M1 instead.
+Legacy round value used in early drafts of P2 (when the fixed point was
+labelled C₀ rather than C₁).  Retained for reference only; causes a 0.063%
+Friedmann closure error.  Not used as a default anywhere in the codebase.
 """
+
+OMEGA_M_NOW_PLANCK: float = 0.315
+"""
+Planck 2018 observed matter fraction at C_now (τ_now ≈ 0.96).
+
+The real universe today is at τ_now ≈ 0.96, not at the de Sitter fixed point
+τ = 1 (C₁).  All Planck observational quantities — Ω_m, Ω_Λ, H₀ — are
+measured at C_now, not at C₁.
+
+    C₁   : τ = 1  (theoretical anchor, never physically reached)
+    C_now: τ ≈ 0.96  (actual present; τ_now = H₀ t₀ ≈ 0.95–0.96 for t₀ ≈ 13.8 Gyr)
+
+Planck 2018 TT,TE,EE+lowE+lensing: Ω_m(C_now) = 0.315 ± 0.007.
+
+The difference between OMEGA_M1 (at C₁) and OMEGA_M_NOW_PLANCK (at C_now) is
+not a prediction gap — it is the natural consequence of two distinct points on
+the cosmological trajectory.
+"""
+
+# Legacy alias — do not use in new code
+OMEGA_M0_PLANCK: float = OMEGA_M_NOW_PLANCK
 
 
 # ---------------------------------------------------------------------------
@@ -73,7 +110,7 @@ class ODEState(NamedTuple):
 # ODE right-hand side
 # ---------------------------------------------------------------------------
 
-def dtau_dz(z: float, tau: float, omega_m0: float = OMEGA_M0_BRIDGE) -> float:
+def dtau_dz(z: float, tau: float, omega_m0: float = OMEGA_M1) -> float:
     """
     dτ/dz = -(1 - ε(z)) / (1 + z)    [P2 Eq. 10]
 
@@ -133,7 +170,7 @@ def C_ratio(tau: float) -> float:
     return math.exp(-2.0 * (tau - 1.0))
 
 
-def build_state(z: float, tau: float, omega_m0: float = OMEGA_M0_BRIDGE) -> ODEState:
+def build_state(z: float, tau: float, omega_m0: float = OMEGA_M1) -> ODEState:
     """Compute the full diagnostic state at a given (z, τ) point."""
     omega_lam = _omega_lambda(tau)
     om = _omega_m(z, omega_lam, omega_m0)

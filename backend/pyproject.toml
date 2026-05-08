@@ -53,7 +53,10 @@ Issues = "https://github.com/wilsonzhuyiling-hub/holographic-simulator/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["core*", "dynamics*", "observation*", "statistics*", "api*"]
+include = ["core*", "dynamics*", "observation*", "statistics*", "api*", "island*"]
+
+[tool.setuptools.package-data]
+observation = ["data/desi_dr2/*.txt"]
 
 [tool.ruff]
 line-length = 100

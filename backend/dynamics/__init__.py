@@ -1,4 +1,4 @@
-"""Dynamics engine — Stage 1.
+"""Dynamics engine — Stage 1/2.
 
 ODE-based integration of the matter-deformed framework equations.
 Implements P2 Sec. 3 self-consistent system:
@@ -12,17 +12,40 @@ with boundary condition τ(z=0) = 1 and Ω_m0 = 0.3 (validation bridge input).
 
 Public API
 ----------
-    solve_history()   → SolverResult   (continuous interpolants)
-    detect_all()      → CriticalPoints (τ_min, C_peak, overflow windows)
+    solve_history()        → SolverResult      (continuous interpolants)
+    detect_all()           → CriticalPoints    (τ_min, C_peak, overflow windows)
+    compute_observables()  → ObservablesResult (BAO distances, ratio observables)
 """
 
 from dynamics.solver import solve_history, SolverResult
 from dynamics.critical_points import detect_all, CriticalPoints, TauMinimum, OverflowWindow
+from dynamics.observables import (
+    compute_observables,
+    ObservablesResult,
+    DH0,
+    H0_PLANCK,
+    R_D_PLANCK,
+    R_D_DESI,
+    C_KMS,
+)
+from dynamics.dark_matter import (
+    compute_dark_matter_curve,
+    compute_omega_dm_eff_curve,
+    compute_omega_dm_eff_demo,
+    DarkMatterCurveResult,
+    OmegaDMEffDemoResult,
+    OMEGA_DM_BASE,
+    KAPPA_GEOM,
+    OMEGA_DM_FP,
+)
 from dynamics.ode_system import (
     C1,
     C_SPHERE,
     OMEGA_LAMBDA_FP,
+    OMEGA_M1,
+    OMEGA_M_NOW_PLANCK,
     OMEGA_M0_BRIDGE,
+    OMEGA_M0_PLANCK,
     ODEState,
     build_state,
     C_geom,
@@ -36,10 +59,28 @@ __all__ = [
     "CriticalPoints",
     "TauMinimum",
     "OverflowWindow",
+    "compute_observables",
+    "ObservablesResult",
+    "DH0",
+    "H0_PLANCK",
+    "R_D_PLANCK",
+    "R_D_DESI",
+    "C_KMS",
+    "compute_dark_matter_curve",
+    "compute_omega_dm_eff_curve",
+    "compute_omega_dm_eff_demo",
+    "DarkMatterCurveResult",
+    "OmegaDMEffDemoResult",
+    "OMEGA_DM_BASE",
+    "KAPPA_GEOM",
+    "OMEGA_DM_FP",
     "C1",
     "C_SPHERE",
     "OMEGA_LAMBDA_FP",
+    "OMEGA_M1",
+    "OMEGA_M_NOW_PLANCK",
     "OMEGA_M0_BRIDGE",
+    "OMEGA_M0_PLANCK",
     "ODEState",
     "build_state",
     "C_geom",

@@ -1,10 +1,16 @@
-name: tests
+name: backend-tests
 
 on:
+  workflow_dispatch:
   push:
-    branches: [main, dev]
+    branches:
+      - main
+      - dev
+      - "feature/**"
   pull_request:
-    branches: [main, dev]
+    branches:
+      - main
+      - dev
 
 jobs:
   backend:
@@ -21,6 +27,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
+          cache-dependency-path: backend/pyproject.toml
 
       - name: Install backend
         working-directory: backend

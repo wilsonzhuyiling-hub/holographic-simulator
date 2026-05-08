@@ -21,7 +21,7 @@ from scipy.interpolate import CubicSpline
 
 from dynamics.ode_system import (
     OMEGA_LAMBDA_FP,
-    OMEGA_M0_BRIDGE,
+    OMEGA_M1,
     C1,
     C_SPHERE,
     ODEState,
@@ -66,22 +66,24 @@ class SolverResult:
     success: bool = True
     message: str = ""
     n_steps: int = 0
+    omega_m0: float = OMEGA_M1   # matter fraction used during integration
 
     def state_at(self, z: float) -> ODEState:
         """Evaluate all diagnostics at an arbitrary redshift z."""
         tau = float(self.tau_of_z(z))
-        return build_state(z, tau)
+        return build_state(z, tau, self.omega_m0)
 
-    def H_normalized(self, z: float, omega_m0: float = OMEGA_M0_BRIDGE) -> float:
+    def H_normalized(self, z: float, omega_m0: float | None = None) -> float:
         """
         E(z) = H(z)/H₀ — the normalized Hubble parameter.
 
-        Constructed from the framework's Ω_Λ(z) and the matter background:
+            E²(z) = Ω_m1(1+z)³ + Ω_Λ(z)
 
-            E²(z) = Ω_m0(1+z)³ + Ω_Λ(z)
-
-        This is the lightcone-observer quantity that DESI measures.
+        Uses the omega_m0 stored at solve time by default.
+        Pass omega_m0 explicitly only for sensitivity comparisons.
         """
+        if omega_m0 is None:
+            omega_m0 = self.omega_m0
         omega_lam = float(self.omega_lambda_of_z(z))
         return math.sqrt(omega_m0 * (1.0 + z) ** 3 + omega_lam)
 
@@ -89,7 +91,7 @@ class SolverResult:
 def solve_history(
     z_max: float = Z_MAX,
     n_eval: int = N_EVAL,
-    omega_m0: float = OMEGA_M0_BRIDGE,
+    omega_m0: float = OMEGA_M1,
     rtol: float = 1e-9,
     atol: float = 1e-11,
 ) -> SolverResult:
@@ -170,4 +172,5 @@ def solve_history(
         success=sol.success,
         message=sol.message,
         n_steps=sol.t.shape[0],
+        omega_m0=omega_m0,
     )
