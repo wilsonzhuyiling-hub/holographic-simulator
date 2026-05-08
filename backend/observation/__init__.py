@@ -7,3 +7,11 @@ Loaders for public cosmological datasets:
 
 Not yet implemented — Stage 2 deliverable.
 """
+
+from observation.desi_dr2 import DESIDR2BAOData, DESIBAOMeasurement, load_desi_dr2_bao
+
+__all__ = [
+    "DESIDR2BAOData",
+    "DESIBAOMeasurement",
+    "load_desi_dr2_bao",
+]

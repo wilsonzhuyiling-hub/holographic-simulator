@@ -28,6 +28,16 @@ from dynamics.observables import (
     R_D_DESI,
     C_KMS,
 )
+from dynamics.dark_matter import (
+    compute_dark_matter_curve,
+    compute_omega_dm_eff_curve,
+    compute_omega_dm_eff_demo,
+    DarkMatterCurveResult,
+    OmegaDMEffDemoResult,
+    OMEGA_DM_BASE,
+    KAPPA_GEOM,
+    OMEGA_DM_FP,
+)
 from dynamics.ode_system import (
     C1,
     C_SPHERE,
@@ -56,6 +66,14 @@ __all__ = [
     "R_D_PLANCK",
     "R_D_DESI",
     "C_KMS",
+    "compute_dark_matter_curve",
+    "compute_omega_dm_eff_curve",
+    "compute_omega_dm_eff_demo",
+    "DarkMatterCurveResult",
+    "OmegaDMEffDemoResult",
+    "OMEGA_DM_BASE",
+    "KAPPA_GEOM",
+    "OMEGA_DM_FP",
     "C1",
     "C_SPHERE",
     "OMEGA_LAMBDA_FP",
